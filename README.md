@@ -5,6 +5,7 @@
 ## Capstone Robotics Project
 
 **Team Name:** Team 301
+
 **Group Members:**
 Alejandro Caro (CpE)
 Henry Forero (CpE)
