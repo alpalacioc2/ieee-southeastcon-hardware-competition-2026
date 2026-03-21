@@ -104,7 +104,7 @@ A high-level sequencing engine that:
 * Uses sensor feedback to trigger transitions
 * Coordinates navigation, tasks, and communication
 * Stores detected colors and manages task execution
-<img width="945" height="264" alt="image" src="https://github.com/user-attachments/assets/bef4e17d-6357-43a2-8409-90860c923b23" />
+
 
 ---
 
