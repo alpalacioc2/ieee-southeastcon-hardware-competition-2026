@@ -1,8 +1,8 @@
 # IEEE SoutheastCon 2026 Hardware Competition
-![IMG_7518](https://github.com/user-attachments/assets/64c70ccc-1f52-492c-876b-669b51d93515)
 
+![Robot](https://github.com/user-attachments/assets/64c70ccc-1f52-492c-876b-669b51d93515)
 
-## Capstone Robotics Project
+##  Capstone Robotics Project
 
 **Team Name:** Team 301
 
@@ -17,183 +17,238 @@ Tommy Buretz (EcE)
 
 ---
 
-## Achievement
+##  Achievement
 
-1st Place Winner — IEEE SoutheastCon 2026 Hardware Competition
-
----
-
-## Abstract
-
-The purpose of this project was to design and implement a fully autonomous robotic system for the IEEE SoutheastCon 2026 Hardware Competition. The competition required teams to develop a self-operating system capable of navigating an arena, completing physical tasks, and maximizing points within a strict time limit.
-
-The system consisted of a ground robot integrated with a drone-based sensing component. The robot performed four primary tasks to activate antennas, which illuminated LED indicators. A drone system then observed and identified the LED colors, and the detected information was transmitted to an “Earth” receiver to score points. Additionally, the robot collected rubber ducks distributed throughout the arena and transported them to a designated scoring zone.
-
-The robot operated entirely autonomously using onboard sensing, navigation, and control algorithms to determine its position and execute task sequences. A point-based scoring system prioritized accurate and efficient task completion, with antenna activation yielding the highest rewards. As a result, the system was designed to prioritize these tasks before collecting additional points through duck retrieval.
-
-Team 301 collaborated with a mechanical engineering team responsible for the robot’s structural design, while the electrical and computer engineering team focused on control systems, sensing, and system integration. The system underwent extensive testing and iterative refinement to improve navigation accuracy, task reliability, and coordination between subsystems.
-
-The final system successfully demonstrated reliable autonomous operation and effective task execution, resulting in a competition-winning performance.
+**1st Place Winner — IEEE SoutheastCon 2026 Hardware Competition**
 
 ---
 
-## Project Description
+##  Abstract
 
-This project is a computer/electrical engineering senior design (capstone) project developed for the IEEE SoutheastCon 2026 Hardware Competition.
+This project presents the design and implementation of a fully autonomous robotic system developed for the IEEE SoutheastCon 2026 Hardware Competition.
 
-The system is a fully autonomous robotic platform built using a distributed ROS2 architecture. It integrates LiDAR-based navigation, computer vision, wireless communication, and real-time control to navigate an arena, detect mission targets, and execute complex multi-stage tasks without human intervention.
+The system consists of a ground robot integrated with a drone-based sensing component. The robot autonomously navigates an arena, activates antennas to illuminate LED indicators, detects colored signals via a drone, and transmits data back to an “Earth” receiver for scoring. Additionally, the robot collects and transports objects (rubber ducks) to a designated scoring zone.
 
----
+The system operates without human intervention, using onboard sensing, navigation, and control algorithms to execute mission objectives efficiently. A point-based scoring strategy prioritizes antenna activation before secondary objectives.
 
-## System Architecture
-
-The robot uses a distributed control system:
-
-* **Raspberry Pi 4 (ROS2 Host)**
-
-  * High-level decision making
-  * LiDAR processing and navigation
-  * Camera-based detection
-  * Task sequencing and mission logic
-  * Wireless communication (Bluetooth + BLE)
-
-* **Arduino Mega 2560**
-
-  * Low-level motor control
-  * Actuator control
-  * Deterministic real-time execution
-
-* **XIAO ESP32C3 Module**
-
-  * BLE-based IR transmission system
-
-This layered architecture allows simultaneous execution of perception, planning, and control.
+Through iterative design, testing, and integration, the system achieved reliable performance and secured first place in competition.
 
 ---
 
-## Software Design (ROS2-Based)
+##  Project Description
 
-The system is implemented as a modular ROS2 node network:
+This project is a senior design (capstone) project focused on building a fully autonomous robotic platform using a distributed ROS2 architecture.
 
-### Launch System
+The system integrates:
 
-The entire robot stack is orchestrated using a ROS2 launch file that initializes all subsystems in sequence (camera, LiDAR, navigation, control, IR).
+* LiDAR-based navigation
+* Computer vision
+* Wireless communication (BLE + IR)
+* Real-time embedded control
 
----
-
-### LiDAR Processing & Virtual Sensors
-
-* Converts raw LiDAR scans into structured “virtual sensors” representing distances around the robot
-* Uses median filtering and angular windows for robustness
+The robot is capable of navigating complex environments, detecting mission targets, and executing multi-stage tasks autonomously.
 
 ---
 
-### Wall-Following Controller
+##  System Architecture
 
-* Implements PID-based wall following
+The robot uses a layered distributed control system:
+
+###  Raspberry Pi 4 (ROS2 Host)
+
+* High-level decision making
+* LiDAR processing and navigation
+* Camera-based object and color detection
+* Mission planning and task sequencing
+* Wireless communication (Bluetooth + BLE)
+* Serial communication with Arduino
+
+###  Arduino Mega 2560
+
+* Low-level motor control
+* Actuator and mechanical task execution
+* Deterministic real-time control
+
+###  XIAO ESP32C3
+
+* BLE-based communication interface
+* IR signal transmission system
+
+This architecture enables parallel execution of perception, planning, and control tasks.
+
+---
+
+##  Software Design (ROS2-Based)
+
+The system is implemented as a modular ROS2 node network.
+
+###  Launch System
+
+* Central launch file initializes all subsystems:
+
+  * Camera
+  * LiDAR
+  * Navigation
+  * Control
+  * Communication
+
+---
+
+###  LiDAR Processing & Virtual Sensors
+
+* Converts raw LiDAR scans into structured virtual sensor regions
+* Applies median filtering for noise reduction
+* Provides real-time environmental awareness
+
+---
+
+###  Wall-Following Controller
+
+* PID-based control system
 * Maintains consistent distance from walls
-* Generates differential drive commands
+* Outputs differential drive commands
 
 ---
 
-### Program Controller (Mission Logic)
+###  Mission Controller
 
-A high-level sequencing engine that:
-
-* Executes a predefined mission plan
-* Uses sensor feedback to trigger transitions
-* Coordinates navigation, tasks, and communication
-* Stores detected colors and manages task execution
-
+* Executes high-level mission logic
+* Uses sensor feedback for state transitions
+* Coordinates navigation, task execution, and communication
+* Stores detected LED color data
 
 ---
 
-### Vision System (Camera Module 2)
+###  Vision System (Camera Module)
 
-* Detects ducks and LED colors from antennas
+* Detects ducks and antenna LED colors
 * Uses HSV-based color segmentation
-* Includes a custom calibration tool for tuning detection thresholds
+* Includes calibration tools for threshold tuning
 
 ---
 
-### Serial Bridge (Pi ↔ Arduino)
+###  Serial Bridge (Raspberry Pi ↔ Arduino)
 
-* Sends real-time wheel commands to Arduino
+* Sends real-time velocity commands
 * Implements safety timeout for fail-safe stopping
-* Handles task-level commands
+* Handles actuator-level commands
 
 ---
 
-### IR Communication (BLE → XIAO)
+###  IR Communication (BLE → XIAO)
 
-* Encodes detected colors into compact payloads
-* Transmits via BLE to XIAO ESP32C3
-* XIAO triggers IR emitters for communication
-
----
-
-## Electronics & Hardware
-
-* Raspberry Pi 4
-* Arduino Mega 2560
-* RPLIDAR A1M8
-* Camera Module 2
-* XIAO ESP32C3 (BLE + IR bridge)
-* DC motors with motor drivers
-* IR transmitters/receivers
-* Bluetooth communication system
-* Power supply system
-<img width="989" height="584" alt="image" src="https://github.com/user-attachments/assets/87914b86-bcf6-4545-96ef-36d2c309325d" />
-
+* Encodes detected color data
+* Transmits via BLE
+* XIAO triggers IR emitters for external communication
 
 ---
 
-## Codebase Structure
+##  Serial Communication Protocol
 
-```bash
-/pi_controller        → ROS2 nodes (navigation, vision, control)
-/arduino_firmware     → Motor control and actuator code
-/launch               → System launch configuration
-/hardware             → Wiring diagrams and layouts
-/docs                 → Reports and documentation
-/images               → Robot photos and visuals
+The Raspberry Pi communicates with the Arduino using a custom serial protocol:
+
+**Command Format:**
+
+```
+C <left_velocity> <right_velocity>
+```
+
+**Examples:**
+
+```
+C 100 100   # Move forward
+C 100 -100  # Turn
+C 0 0       # Stop
+```
+
+**Additional Commands:**
+
+```
+M0 → Stop motors
+M1 → Enable motors
+C → crank
+C → flag
+C → keypad
 ```
 
 ---
 
-## System Behavior
+Hardware
+Core Components
+Raspberry Pi 4
+Arduino Mega 2560
+XIAO ESP32C3
+Sensors
+RPLIDAR A1M8
+Raspberry Pi Camera Module
+IR Sensors
+IMU
+Actuation
+DC Motors
+Servo Motors
+Motor Drivers
+Power System
+LiPo Battery
+Voltage Regulators
+Fuse Protection
 
-The robot operates using a layered autonomous pipeline:
+ Full Bill of Materials available in:
+/hardware/Robot_BOM.xlsx
 
-1. LiDAR generates spatial awareness
-2. Virtual sensors interpret environment
-3. Wall-following controller computes motion
-4. Camera detects ducks and antenna LED colors
-5. Program controller executes mission sequence
-6. Arduino executes motor and mechanical commands
-7. Color data is transmitted via BLE → XIAO → IR
-8. Data is sent back to Earth
+ System Diagram
 
----
 
-## Results
 
-* 1st Place — IEEE SoutheastCon 2026 Hardware Competition
-* Reliable LiDAR-based wall-following navigation
-* Accurate vision-based color detection
-* Successful multi-stage mission execution
-* Robust ROS2 distributed system performance
-* Seamless integration of navigation, vision, and communication
 
----
-
-## Author
+ Codebase Structure
+/pi_controller        → ROS2 nodes (navigation, vision, control)
+/arduino_firmware     → Motor control and actuator code
+/launch               → System launch configuration
+/hardware             → BOM and wiring diagrams
+/docs                 → Reports and documentation
+/images               → Robot photos and visuals
+ System Behavior
+LiDAR generates spatial awareness
+Virtual sensors interpret environment
+Wall-following controller computes motion
+Camera detects objects and LED colors
+Mission controller executes task sequence
+Arduino performs motor and actuator control
+Data transmitted via BLE → XIAO → IR
+Results sent to scoring system
+ Setup & Installation
+Prerequisites
+Ubuntu 22.04
+ROS2 Humble
+OpenCV
+RPLIDAR SDK
+Installation
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+colcon build
+source install/setup.bash
+Running the System
+ros2 launch launch/main_launch.py
+ Key Contributions (Alejandro Caro)
+Designed distributed ROS2 system architecture
+Implemented LiDAR-based virtual sensor processing
+Developed PID wall-following controller
+Built serial communication interface (Pi ↔ Arduino)
+Integrated vision system for object and color detection
+Contributed to full system integration and testing
+ Results
+ 1st Place — IEEE SoutheastCon 2026 Hardware Competition
+Reliable LiDAR-based navigation
+Accurate vision-based detection
+Robust multi-stage autonomous execution
+Seamless integration of perception, control, and communication
+ Author
 
 Alejandro Caro
 Computer Engineering, Florida State University
 
----
-
-## License
+ License
 
 This project is licensed under the MIT License.
+
+* Rasp
