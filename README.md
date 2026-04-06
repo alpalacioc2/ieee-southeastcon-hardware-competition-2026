@@ -102,7 +102,8 @@ The architecture is divided into two main layers:
 
 ### Main Hardware Components
 
-<img width="646" height="591" alt="Hardware Components" src="https://github.com/user-attachments/assets/142728be-e225-42e2-b272-91ae573f6239" />
+<img width="965" height="761" alt="image" src="https://github.com/user-attachments/assets/b2544ee6-1c6f-4d23-b55d-1f19e83965df" />
+<img width="708" height="647" alt="image" src="https://github.com/user-attachments/assets/77041c7b-95d6-4e44-aab4-f0c503d07272" />
 
 ---
 
