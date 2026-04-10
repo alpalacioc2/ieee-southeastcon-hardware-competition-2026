@@ -88,12 +88,13 @@ The system supports LiDAR-based perception and uses ROS2 for high-level control 
 
 The architecture is divided into two main layers:
 
-#### High-Level System
+#### High-Level System : Raspberry Pi 4 Microprocessor
 - Sensor data processing  
 - Navigation and decision making  
-- ROS2-based system coordination  
+- ROS2-based system coordination
+- Communication protocols for subsystems such as drone, IR transmitter, Arduino Mega.  
 
-#### Low-Level System
+#### Low-Level System : Arduino mega 2650 Microcontroller
 - Motor control  
 - Actuator execution  
 - Real-time hardware interaction  
@@ -109,6 +110,8 @@ The architecture is divided into two main layers:
 
 ### Full System Diagram
 
-<img width="1513" height="835" alt="Full System Diagram" src="https://github.com/user-attachments/assets/98397a1c-5b4d-4a8a-bc80-602aa64941f7" />
+<img width="936" height="691" alt="image" src="https://github.com/user-attachments/assets/fc7a602f-8b76-42ec-9cda-02c3149607e2" />
+
+
 
 ---
