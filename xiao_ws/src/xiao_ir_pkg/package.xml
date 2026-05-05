@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>xiao_ir_pkg</name>
+  <version>0.0.0</version>
+  <description>ROS2 BLE sender for XIAO IR bridge</description>
+  <maintainer email="team301@todo.todo">team301</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+
+  <exec_depend>python3-bleak</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
